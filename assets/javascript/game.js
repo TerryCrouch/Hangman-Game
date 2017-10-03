@@ -1,22 +1,69 @@
-var objHangMan = {
-	currentWord: "",
-	lettersGuessed: [],
-	randomWord: "",
-	wins: 0,
-	losses: 0,
-};
+// Create object to contain the game variables
 
-var objWords =  {
-	randomWord: ["pumpkin","tissue","hairbrush","vase","chameleon","bubble","pajamas","coconut","sink","jewelry","pelican","spare","headband","basket","corner","circus","shovel","seesaw","skunk","wreath","silverware","frog","refrigerator","bucket","plate","shark","tennis","mailbox","dragonfly","flagpole","snowflake","ladder","money","match","eraser","palace","rainbow","wrench","forehead","mitten","catfish","tiger","waist","railroad","puzzle","gumball","calendar","doghouse","scissors","battery","glasses"],
-};
+var objHangman = {
+	"wins":0,
+	"losses":0,
+	"displayWord":"",
+	"guessWord":"",
+	"chances":"",
+	"guessedLetters":[],
+	"validLetters":"abcdefghijklmnopqrstuvwxyz",
+	"availableLetters":"abcdefghijklmnopqrstuvwxyz",
+	"userGuess":"",
 
-function pickWord() {
-	var minNumber = 0;
-	var maxNumber = 50; 
-	randomNum = Math.floor(Math.random() * (maxNumber + 1) + minNumber);
-	objHangMan.randomWord = objWords.randomWord[randomNum];
-	console.log ("Random Number is " + randomNum);
-	console.log("Random Word is " + objHangMan.randomWord);
 }
 
-pickWord()
+
+// Create an array of possible words
+
+var wordsArr = ["pumpkin", "costume", "ghost", "goblin", "vampire", "witch", "princess", "candy", "party"];
+
+// Create a function to choose a random word
+
+function randomWord(string) {
+	var randomNum = Math.floor(Math.random() * wordsArr.length);
+	objHangman.guessWord = wordsArr[randomNum];
+
+	console.log("randomNum = " + randomNum);
+	console.log("guessWord = " + objHangman.guessWord);
+}
+
+randomWord();
+
+// Change the display word to underscores to be guessed
+
+objHangman.displayWord = objHangman.guessWord;
+
+console.log("displayWord = "+ objHangman.guessWord);
+
+
+// Create a function to record user guesses
+document.onkeyup = function(event) {
+
+	var userGuess = event.key;
+
+	if (objHangman.validLetters.indexOf(userGuess) === -1)  {
+		console.log("Please enter a valid letter.");
+	} else {
+		if (objHangman.guessedLetters.indexOf(userGuess) !== -1) {
+			console.log("You already guessed " + userGuess + ". Please choose another letter.");
+		} else if (objHangman.guessWord.indexOf(userGuess) !== -1) {
+			console.log(userGuess + " is part of the word!");
+			objHangman.guessedLetters.push(userGuess);
+		} else {
+			console.log(userGuess + " is not part of the word.");
+		}
+	}
+	
+}
+
+// If Guess is found in display word array, identify the position and replace underscores with letters
+
+
+// If guess is not found in display word array, subtract 1 from chances, and post the missed letter to the wrong guesses display
+
+
+// If guess completes the word, increment wins by 1, display a victory confirm message, and choose a new word.
+
+
+// If wrong guess decrements chances to "0", end current game, record it as a loss, and choose a new word.
