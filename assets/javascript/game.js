@@ -47,7 +47,7 @@ document.onkeyup = function(event) {
 	} else {
 		if (objHangman.guessedLetters.indexOf(userGuess) !== -1) {
 			console.log("You already guessed " + userGuess + ". Please choose another letter.");
-		} else if (objHangman.guessWord.indexOf(userGuess) !== -1) {
+		} if (objHangman.guessWord.indexOf(userGuess) !== -1) {
 			console.log(userGuess + " is part of the word!");
 			objHangman.guessedLetters.push(userGuess);
 		} else {
