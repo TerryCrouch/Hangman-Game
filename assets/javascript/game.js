@@ -27,8 +27,6 @@ var wordsArr = ["pumpkin", "costume", "ghost", "goblin", "vampire", "witch", "pr
 function randomWord(string) {
 	var randomNum = Math.floor(Math.random() * wordsArr.length);
 	gameState.guessWord = wordsArr[randomNum];
-
-	console.log("randomNum = " + randomNum);
 	console.log("guessWord = " + gameState.guessWord);
 }
 
@@ -51,30 +49,28 @@ letterDisplay.innerHTML = gameState.incorrectLetters;
 document.onkeyup = function(event) {
 
 	var userGuess = event.key;
-
+	// Checks to see if letter was valid
 	if (gameState.validLetters.indexOf(userGuess) === -1)  {
-		console.log("Please enter a valid letter.");
-	} else {
+		} else {
+		// If it's a valid letter, and not found in the guessed letters array...
 		if (gameState.guessedLetters.indexOf(userGuess) === -1) {
-
+			// If the guessed letter is found in the guessWord value, updates guessedLetters array, then calls functions to create an array of index locations of the character, and then update the display word to match those index locations
 			if (gameState.guessWord.indexOf(userGuess) !== -1) {
-				console.log(userGuess + " is part of the word!");
 				gameState.guessedLetters.push(userGuess);
 				updateCorrectGuess(userGuess);
 				updateDisplayWord(gameState.correctGuess);
-
+			// If the guessed letter is not found in the guessWord value, addes the letter to the guessedLetters array, decrements chances by 1, pushes the letter to the id incorrect div, and then updates the display image to match the current chances left.
 			} else if (gameState.guessWord.indexOf(userGuess) === -1){
-				console.log(userGuess + " is not part of the word.");
 				gameState.guessedLetters.push(userGuess);
 				gameState.chances--
 				gameState.incorrectLetters.push(userGuess.toUpperCase());
 				letterDisplay.innerHTML = gameState.incorrectLetters;
 				updateDisplayImg();
-
 			} 
 		}
+		// If the letter has already been guessed, throws an alert to advise the player to stop doing stupid shit.
 		else {
-			console.log(userGuess + " has already been guessed.  Please choose another letter.");
+			alert(userGuess.toUpperCase() + " has already been guessed.  Please choose another letter.");
 		}
 	}
 
@@ -84,35 +80,26 @@ document.onkeyup = function(event) {
 function updateCorrectGuess(char) {
 	// add correct character to correct guess object
 	gameState.correctGuess.char = char;
-
 	// set return object array to empty array
 	gameState.correctGuess.positions = [];
-
 	//loop through correct word and build an array of the correct index locations
 	for(var i = 0; i < gameState.guessWord.length; i += 1){
 		if(gameState.correctGuess.char === gameState.guessWord[i]) {
 			// add the index location of the correct guess to the object index array
 			gameState.correctGuess.positions.push(i);
 		}
-
 	}
-
-
 }
 
 // Function to update display word for correct guesses
-
 function updateDisplayWord(obj) {
 	//
 	var tempWord = gameState.displayWord;
 	obj.positions.forEach(function(index) {
 		tempWord = tempWord.substring(0, index) + obj.char + tempWord.substring(index+1);
 	});
-
 	gameState.displayWord = tempWord
-
 	pageDisplay.innerHTML = gameState.displayWord.toUpperCase();
-
 	console.log("TempWord = "+tempWord);
 	console.log(obj.positions);
 }

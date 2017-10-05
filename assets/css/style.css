@@ -1,3 +1,13 @@
+body {
+	background-color: black;
+}
+
+#content-wrapper {
+	min-width: 480px;
+	margin: auto;
+	float: none;
+}
+
 .wrapper {
 	text-align: center;
 	background-color: black;
