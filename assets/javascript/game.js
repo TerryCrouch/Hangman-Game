@@ -136,6 +136,7 @@ function wonGame() {
 	gameState.wins += 1;
 	var youWon = document.getElementById("wins");
 	youWon.innerHTML = "Wins: "+gameState.wins;
+	alert("You Won!");
 	gameState.chances = 6;
 	gameState.displayWord = "";
 	gameState.guessWord = "";
@@ -143,7 +144,7 @@ function wonGame() {
 	gameState.incorrectLetters = [];
 	randomWord();
 	initDisplayWord(gameState.guessWord);
-	alert("You Won!");
+
 }
 
 // Lost Game losses increment
@@ -151,6 +152,9 @@ function lostGame() {
 	gameState.losses += 1;
 	var youLost = document.getElementById("losses");
 	youLost.innerHTML = "Losses: "+gameState.losses;
+	var lostWord = document.getElementById("displayWord");
+	lostWord.innerHTML = gameState.guessWord.toUpperCase();
+	alert("You Lost!");
 	gameState.chances = 6;
 	gameState.displayWord = "";
 	gameState.guessWord = "";
@@ -158,5 +162,4 @@ function lostGame() {
 	gameState.incorrectLetters = [];
 	randomWord();
 	initDisplayWord(gameState.guessWord);
-	alert("You Lost!");	
 }
