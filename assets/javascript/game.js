@@ -20,7 +20,7 @@ var gameState = {
 
 // Create an array of possible words
 
-var wordsArr = ["pumpkin", "costume", "ghost", "goblin", "vampire", "witch", "princess", "candy", "party","cauldron"];
+var wordsArr = ["pumpkin", "costume", "ghost", "goblin", "vampire", "witch", "princess", "candy", "party","cauldron","spooky","scarecrow","graveyard","tombstone","monster","zombie","mummy","skeleton","werewolf","demon","cackle","scythe","coffin","voodoo","banshee","haunted","macabre","cobwebs","decomposed","candles","bewitching","creaking","frightened","grotesque","ghastly","nightmare","pentagram","phantom","scream","spectral","spider","spirit","supernatural","tortured","troll","twilight","midnight",];
 
 // Create a function to choose a random word
 
@@ -35,15 +35,24 @@ randomWord();
 
 // Change the display word to underscores to be guessed
 
-for (i = 0; i < gameState.guessWord.length; i += 1) {
-	gameState.displayWord += "_"
+var pageDisplay = document.getElementById("displayWord");
+var letterDisplay = document.getElementById("incorrect");
+
+function initDisplayWord(){
+	for (i = 0; i < gameState.guessWord.length; i += 1) {
+		gameState.displayWord += "_"
+	}
+
+	pageDisplay.innerHTML = gameState.displayWord;
+	letterDisplay.innerHTML = gameState.incorrectLetters;
+
+	state = gameState.chances;
+	gameState.currentImg.src = `assets/images/hang_${state}.png`
 }
 
-var pageDisplay = document.getElementById("displayWord");
-pageDisplay.innerHTML = gameState.displayWord;
+initDisplayWord();
 
-var letterDisplay = document.getElementById("incorrect");
-letterDisplay.innerHTML = gameState.incorrectLetters;
+
 
 // Create a function to record user guesses
 document.onkeyup = function(event) {
@@ -51,7 +60,7 @@ document.onkeyup = function(event) {
 	var userGuess = event.key;
 	// Checks to see if letter was valid
 	if (gameState.validLetters.indexOf(userGuess) === -1)  {
-		} else {
+	} else {
 		// If it's a valid letter, and not found in the guessed letters array...
 		if (gameState.guessedLetters.indexOf(userGuess) === -1) {
 			// If the guessed letter is found in the guessWord value, updates guessedLetters array, then calls functions to create an array of index locations of the character, and then update the display word to match those index locations
@@ -59,21 +68,22 @@ document.onkeyup = function(event) {
 				gameState.guessedLetters.push(userGuess);
 				updateCorrectGuess(userGuess);
 				updateDisplayWord(gameState.correctGuess);
+				checkWinLoss();
 			// If the guessed letter is not found in the guessWord value, addes the letter to the guessedLetters array, decrements chances by 1, pushes the letter to the id incorrect div, and then updates the display image to match the current chances left.
-			} else if (gameState.guessWord.indexOf(userGuess) === -1){
-				gameState.guessedLetters.push(userGuess);
-				gameState.chances--
-				gameState.incorrectLetters.push(userGuess.toUpperCase());
-				letterDisplay.innerHTML = gameState.incorrectLetters;
-				updateDisplayImg();
-			} 
-		}
+		} else if (gameState.guessWord.indexOf(userGuess) === -1){
+			gameState.guessedLetters.push(userGuess);
+			gameState.chances--
+			gameState.incorrectLetters.push(userGuess.toUpperCase());
+			letterDisplay.innerHTML = gameState.incorrectLetters;
+			updateDisplayImg();
+			checkWinLoss();
+		} 
+	}
 		// If the letter has already been guessed, throws an alert to advise the player to stop doing stupid shit.
 		else {
 			alert(userGuess.toUpperCase() + " has already been guessed.  Please choose another letter.");
 		}
 	}
-
 }
 
 // Update a correct guess
@@ -100,8 +110,6 @@ function updateDisplayWord(obj) {
 	});
 	gameState.displayWord = tempWord
 	pageDisplay.innerHTML = gameState.displayWord.toUpperCase();
-	console.log("TempWord = "+tempWord);
-	console.log(obj.positions);
 }
 
 // Function to update the display image to match chances
@@ -112,13 +120,43 @@ function updateDisplayImg() {
 }
 
 
-// If userGuess is found in guessWord, identify the position in displayWord and replace underscore with letter
+// Function checks win or loss 
 
+function checkWinLoss () {
+	if(gameState.displayWord.indexOf("_") === -1) {
+		wonGame();
+	}
+	if(gameState.chances === 0) {
+		lostGame();
+	}
+}
 
-// If userGuess is not found in display word array, subtract 1 from chances, and post the missed letter to the wrong guesses display
+// Win Game function to increment wins and reset game to be played again.
+function wonGame() {
+	gameState.wins += 1;
+	var youWon = document.getElementById("wins");
+	youWon.innerHTML = "Wins: "+gameState.wins;
+	gameState.chances = 6;
+	gameState.displayWord = "";
+	gameState.guessWord = "";
+	gameState.guessedLetters = [];
+	gameState.incorrectLetters = [];
+	randomWord();
+	initDisplayWord(gameState.guessWord);
+	alert("You Won!");
+}
 
-
-// If userGuess completes the word, increment wins by 1, display a victory confirm message, and choose a new word.
-
-
-// If wrong guess decrements chances to "0", end current game, record it as a loss, and choose a new word.
+// Lost Game losses increment
+function lostGame() {
+	gameState.losses += 1;
+	var youLost = document.getElementById("losses");
+	youLost.innerHTML = "Losses: "+gameState.losses;
+	gameState.chances = 6;
+	gameState.displayWord = "";
+	gameState.guessWord = "";
+	gameState.guessedLetters = [];
+	gameState.incorrectLetters = [];
+	randomWord();
+	initDisplayWord(gameState.guessWord);
+	alert("You Lost!");	
+}

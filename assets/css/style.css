@@ -19,6 +19,7 @@ h1, p {
 	font-family: 'Nosifer', cursive;
 	color: red;
 	font-weight: 700;
+	text-align: center;
 }
 
 #displayWord, #guessedLetters {
@@ -42,4 +43,11 @@ h1, p {
 #incorrect{
 	color: yellow;
 	font-weight: 900;
+}
+
+#wins, #losses {
+	font-size: 20px;
+	font-weight: 500;
+	width: 50%;
+	margin: auto;
 }
