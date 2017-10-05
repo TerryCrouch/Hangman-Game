@@ -2,17 +2,34 @@
 <html>
 <head>
 	<title>Hangman</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 </head>
 <body>
 
-
-
-
+	<div id="content-wrapper" class="wrapper col-xs-6">
+		<h1>Halloween Hangman</h1>
+		<div class="row">
+			<div id="displayWord" class="col-xs-12">
+			</div>
+		</div>
+		<div class="row">
+		<img id="hangImg" src="assets/images/hang_6.png" alt="Hangman">
+		</div>
+		<div class="row">
+			<div id="guessedLetters" class=" wrapper col-xs-12">
+				<div class="row">
+				<p>Incorrect Guesses</p>
+			</div>
+			<div id="incorrect" class="row">
+			</div>
+			</div>
+		</div>
+	</div>
 	<script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>
 </html>
