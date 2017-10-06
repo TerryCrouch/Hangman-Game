@@ -1,33 +1,35 @@
-
-function gameStart() {
-
-	var gameState = {
-		"currentImg": document.getElementById("hangImg"),
-		"wins":0,
-		"losses":0,
-		"displayWord":"",
-		"guessWord":"",
-		"chances": 6,
-		"guessedLetters":[],
-		"incorrectLetters":[],
-		"validLetters":"abcdefghijklmnopqrstuvwxyz",
-		"availableLetters":"abcdefghijklmnopqrstuvwxyz",
-		"userGuess":"",
-		"correctGuess": {
-			"char": "",
-			"positions": [],
-		}
-
-	}
-
 	// Create an array of possible words
 
-	var wordsArr = ["pumpkin", "costume", "ghost", "goblin", "vampire", "witch", "princess", "candy", "party","cauldron","spooky","scarecrow","graveyard","tombstone","monster","zombie","mummy","skeleton","werewolf","demon","cackle","scythe","coffin","voodoo","banshee","haunted","macabre","cobwebs","decomposed","candles","bewitching","creaking","frightened","grotesque","ghastly","nightmare","pentagram","phantom","scream","spectral","spider","spirit","supernatural","tortured","troll","twilight","midnight",];
+	var wordsArr = ["pumpkin", "costume", "ghost", "goblin", "vampire", "witch", "princess", "candy", "party","cauldron","spooky","scarecrow","graveyard","tombstone","monster","zombie","mummy","skeleton","werewolf","demon","cackle","scythe","coffin","voodoo","banshee","haunted","macabre","cobwebs","decomposed","candles","bewitching","creaking","frightened","grotesque","ghastly","nightmare","pentagram","phantom","scream","spectral","spider","spirit","supernatural","tortured","troll","twilight","midnight","afterlife","alarming","apparition","bloodcurdling","broomstick","cemetery","carve","gruesome","hayride","lantern","october","darkness","possessed","pirate","tarantula","trick","warlock","wizard","eerie","horrible","horrify","morbid","mysterious","repulsive","eyeball","wicked","magic","fangs","dreadful","cadaver","chilling","casket","sarcophagus","moonlight","harvest","shadows","sweets","headless"];
+
+
+	function gameStart() {
+
+		var gameState = {
+			"currentImg": document.getElementById("hangImg"),
+			"wins":0,
+			"losses":0,
+			"displayWord":"",
+			"guessWord":"",
+			"chances": 6,
+			"guessedLetters":[],
+			"incorrectLetters":[],
+			"validLetters":"abcdefghijklmnopqrstuvwxyz",
+			"availableLetters":"abcdefghijklmnopqrstuvwxyz",
+			"userGuess":"",
+			"correctGuess": {
+				"char": "",
+				"positions": [],
+			}
+
+		}
+
+
 
 	//Get Links to audio files for win/loss
 
 	var audioElement = document.createElement("audio");
-		audioElement.setAttribute("id","gameAudio");
+	audioElement.setAttribute("id","gameAudio");
 
 	
 	// Create a function to choose a random word
@@ -36,6 +38,7 @@ function gameStart() {
 		var randomNum = Math.floor(Math.random() * wordsArr.length);
 		gameState.guessWord = wordsArr[randomNum];
 		console.log("guessWord = " + gameState.guessWord);
+		wordsArr.splice([randomNum],1);
 	}
 
 	randomWord();
@@ -196,4 +199,5 @@ function gameStart() {
 
 document.onkeyup = function() {
 	gameStart();
+
 }
