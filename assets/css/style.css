@@ -4,6 +4,7 @@ body {
 
 #content-wrapper {
 	min-width: 480px;
+	max-width: 900px;
 	margin: auto;
 	float: none;
 }
@@ -45,10 +46,15 @@ h1, p {
 	font-weight: 900;
 }
 
-#wins, #losses {
+#wins, #losses, #guesses {
 	font-size: 20px;
 	font-weight: 500;
-	width: 50%;
+	width: 33%;
 	margin: auto;
+	margin-bottom: 20px;
 	color: #FDEB7A;
+}
+
+#guesses {
+	color: white;
 }
