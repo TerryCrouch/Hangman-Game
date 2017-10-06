@@ -17,7 +17,6 @@ var gameState = {
 
 }
 
-
 // Create an array of possible words
 
 var wordsArr = ["pumpkin", "costume", "ghost", "goblin", "vampire", "witch", "princess", "candy", "party","cauldron","spooky","scarecrow","graveyard","tombstone","monster","zombie","mummy","skeleton","werewolf","demon","cackle","scythe","coffin","voodoo","banshee","haunted","macabre","cobwebs","decomposed","candles","bewitching","creaking","frightened","grotesque","ghastly","nightmare","pentagram","phantom","scream","spectral","spider","spirit","supernatural","tortured","troll","twilight","midnight",];
@@ -144,17 +143,25 @@ function wonGame() {
 	gameState.incorrectLetters = [];
 	randomWord();
 	initDisplayWord(gameState.guessWord);
-
 }
 
 // Lost Game losses increment
 function lostGame() {
 	gameState.losses += 1;
-	var youLost = document.getElementById("losses");
-	youLost.innerHTML = "Losses: "+gameState.losses;
 	var lostWord = document.getElementById("displayWord");
 	lostWord.innerHTML = gameState.guessWord.toUpperCase();
-	alert("You Lost!");
+	var youLost = document.getElementById("losses");
+	youLost.innerHTML = "Losses: "+gameState.losses;
+
+	document.onkeyup = function() {
+
+	resetGame();
+
+}
+
+}
+
+function resetGame(){
 	gameState.chances = 6;
 	gameState.displayWord = "";
 	gameState.guessWord = "";
@@ -163,3 +170,4 @@ function lostGame() {
 	randomWord();
 	initDisplayWord(gameState.guessWord);
 }
+
