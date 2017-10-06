@@ -54,8 +54,8 @@ initDisplayWord();
 
 
 // Create a function to record user guesses
-document.onkeyup = function(event) {
 
+function gameplay() { 
 	var userGuess = event.key;
 	// Checks to see if letter was valid
 	if (gameState.validLetters.indexOf(userGuess) === -1)  {
@@ -83,6 +83,10 @@ document.onkeyup = function(event) {
 			alert(userGuess.toUpperCase() + " has already been guessed.  Please choose another letter.");
 		}
 	}
+}
+
+document.onkeyup = function() {
+	gameplay();
 }
 
 // Update a correct guess
@@ -135,14 +139,13 @@ function wonGame() {
 	gameState.wins += 1;
 	var youWon = document.getElementById("wins");
 	youWon.innerHTML = "Wins: "+gameState.wins;
-	alert("You Won!");
-	gameState.chances = 6;
-	gameState.displayWord = "";
-	gameState.guessWord = "";
-	gameState.guessedLetters = [];
-	gameState.incorrectLetters = [];
-	randomWord();
-	initDisplayWord(gameState.guessWord);
+	gameState.chances = 7;
+	updateDisplayImg();
+	document.onkeyup = function() {
+		gameplay();
+
+		resetGame();
+	}
 }
 
 // Lost Game losses increment
@@ -168,6 +171,10 @@ function resetGame(){
 	gameState.guessedLetters = [];
 	gameState.incorrectLetters = [];
 	randomWord();
+	updateDisplayImg();
 	initDisplayWord(gameState.guessWord);
+	document.onkeyup = function() {
+		gameplay();
+	}
 }
 
