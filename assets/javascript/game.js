@@ -1,29 +1,35 @@
 
 function gameStart() {
 
-		var gameState = {
-			"currentImg": document.getElementById("hangImg"),
-			"wins":0,
-			"losses":0,
-			"displayWord":"",
-			"guessWord":"",
-			"chances": 6,
-			"guessedLetters":[],
-			"incorrectLetters":[],
-			"validLetters":"abcdefghijklmnopqrstuvwxyz",
-			"availableLetters":"abcdefghijklmnopqrstuvwxyz",
-			"userGuess":"",
-			"correctGuess": {
-				"char": "",
-				"positions": [],
-			}
-
+	var gameState = {
+		"currentImg": document.getElementById("hangImg"),
+		"wins":0,
+		"losses":0,
+		"displayWord":"",
+		"guessWord":"",
+		"chances": 6,
+		"guessedLetters":[],
+		"incorrectLetters":[],
+		"validLetters":"abcdefghijklmnopqrstuvwxyz",
+		"availableLetters":"abcdefghijklmnopqrstuvwxyz",
+		"userGuess":"",
+		"correctGuess": {
+			"char": "",
+			"positions": [],
 		}
+
+	}
 
 	// Create an array of possible words
 
 	var wordsArr = ["pumpkin", "costume", "ghost", "goblin", "vampire", "witch", "princess", "candy", "party","cauldron","spooky","scarecrow","graveyard","tombstone","monster","zombie","mummy","skeleton","werewolf","demon","cackle","scythe","coffin","voodoo","banshee","haunted","macabre","cobwebs","decomposed","candles","bewitching","creaking","frightened","grotesque","ghastly","nightmare","pentagram","phantom","scream","spectral","spider","spirit","supernatural","tortured","troll","twilight","midnight",];
 
+	//Get Links to audio files for win/loss
+
+	var audioElement = document.createElement("audio");
+		audioElement.setAttribute("id","gameAudio");
+
+	
 	// Create a function to choose a random word
 
 	function randomWord(string) {
@@ -143,6 +149,8 @@ function gameStart() {
 		youWon.innerHTML = "Wins: "+gameState.wins;
 		gameState.chances = 8;
 		updateDisplayImg();
+		audioElement.setAttribute("src", "assets/sounds/win.mp3");
+		audioElement.play();
 		document.onkeyup = function() {
 			gameplay();
 
@@ -157,7 +165,8 @@ function gameStart() {
 		lostWord.innerHTML = gameState.guessWord.toUpperCase();
 		var youLost = document.getElementById("losses");
 		youLost.innerHTML = "Losses: "+gameState.losses;
-
+		audioElement.setAttribute("src", "assets/sounds/loss.mp3");
+		audioElement.play();
 		document.onkeyup = function() {
 
 			resetGame();
